@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UsuarioRequest;
 use Illuminate\Http\Request;
 use App\Models\Usuario;
 
@@ -29,6 +30,16 @@ class UsuarioController extends Controller
      */
     public function store(Request $request)
     {
+        $input = $request->validate([
+            'nome'=>'required',
+            'data_nasc'=>'required',
+            'cpf_cnpj'=>'required',
+            'foto'=>'required',
+            'nome_social'=>'required'
+
+        ]);
+        
+
         $usuario = new Usuario;
         
         $usuario->nome = $request->nome;
@@ -51,6 +62,8 @@ class UsuarioController extends Controller
         }
 
         $usuario->nome_social = $request->nome_social;
+
+        // 
 
         $usuario->save();
         // $input = $request->all();
